@@ -1,0 +1,41 @@
+{
+  "appId": "com.siraha.myweb",
+  "appName": "Siraha Bazaar",
+  "webDir": "client/public",
+  "server": {
+    "url": "https://ef69e880-48f9-41bf-b312-d18b6a0a82dc-00-c2r4hmbdsw4b.pike.replit.dev",
+    "cleartext": true
+  },
+  "plugins": {
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
+    },
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_icon_config_sample",
+      "iconColor": "#059669",
+      "sound": "beep.wav"
+    },
+    "SplashScreen": {
+      "launchShowDuration": 3000,
+      "launchAutoHide": true,
+      "backgroundColor": "#059669",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": true,
+      "androidSpinnerStyle": "large",
+      "iosSpinnerStyle": "small",
+      "spinnerColor": "#999999",
+      "splashFullScreen": true,
+      "splashImmersive": true
+    }
+  },
+  "android": {
+    "buildOptions": {
+      "keystorePath": undefined,
+      "keystorePassword": undefined,
+      "keystoreAlias": undefined,
+      "keystoreAliasPassword": undefined,
+      "releaseType": "APK"
+    }
+  }
+}

@@ -1,0 +1,1 @@
+// This file has been removed as the application functionality is no longer needed

@@ -1,0 +1,1154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Border Radius Utilities */
+}
+
+/* Hide scrollbars across the website while maintaining scroll functionality */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* WebKit browsers (Chrome, Safari, etc.) */
+}
+
+/* Modern Categories Mobile Design - Inspired by Noon App */
+.categories-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Mobile Categories Grid - No Overflow */
+@media (max-width: 640px) {
+  .mobile-categories-grid {
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 0.75rem !important;
+    padding: 0 1rem !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  .mobile-category-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    max-width: 70px !important;
+    margin: 0 auto !important;
+    padding: 0.25rem 0.125rem !important; /* Reduced padding for compact layout */
+    text-align: center !important;
+    border-radius: 0.75rem !important;
+    transition: all 0.2s ease !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .mobile-category-item:active {
+    transform: scale(0.95) !important;
+    background-color: rgba(37, 99, 235, 0.05) !important;
+  }
+
+  .mobile-category-icon {
+    width: 40px !important; /* Reduced size */
+    height: 40px !important; /* Reduced size */
+    border-radius: 50% !important;
+    margin-bottom: 0.25rem !important; /* Reduced margin */
+    overflow: hidden !important;
+    position: relative !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    flex-shrink: 0 !important;
+  }
+
+  .mobile-category-icon img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    transition: transform 0.2s ease !important;
+  }
+
+  .mobile-category-item:active .mobile-category-icon img {
+    transform: scale(1.05) !important;
+  }
+
+  .mobile-category-name {
+    font-size: 0.5rem !important; /* 8px - smaller for compact layout */
+    font-weight: 500 !important;
+    line-height: 1.1 !important; /* Tighter line height */
+    color: hsl(var(--foreground)) !important;
+    text-align: center !important;
+    width: 100% !important;
+    max-width: 60px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    word-wrap: break-word !important;
+    hyphens: auto !important;
+  }
+
+  .mobile-category-item:active .mobile-category-name {
+    color: hsl(var(--primary)) !important;
+  }
+
+  /* View All Button Styling */
+  .mobile-view-all-category {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary) / 0.1),
+      hsl(var(--primary) / 0.05)
+    ) !important;
+    border: 1px solid hsl(var(--primary) / 0.2) !important;
+  }
+
+  .mobile-view-all-icon {
+    background: hsl(var(--primary) / 0.1) !important;
+    border: 1px solid hsl(var(--primary) / 0.2) !important;
+  }
+
+  .mobile-view-all-name {
+    color: hsl(var(--primary)) !important;
+    font-weight: 600 !important;
+  }
+}
+
+/* Categories Swiper for Tablet/Desktop */
+.categories-swiper {
+  width: 100% !important;
+  overflow: visible !important;
+  touch-action: pan-x pan-y !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+.categories-swiper .swiper-wrapper {
+  align-items: flex-start !important;
+  transform-style: preserve-3d !important;
+  will-change: transform !important;
+}
+
+.categories-swiper .swiper-slide {
+  display: flex !important;
+  justify-content: center !important;
+  width: auto !important;
+  flex-shrink: 0 !important;
+  touch-action: manipulation !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* Mobile Categories Swiper - Noon Style */
+@media (max-width: 640px) {
+  .categories-section {
+    overflow: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  .mobile-categories-swiper {
+    width: 100% !important;
+    overflow: visible !important;
+    touch-action: pan-x pan-y !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .mobile-categories-swiper .swiper-wrapper {
+    align-items: flex-start !important;
+    transform-style: preserve-3d !important;
+    will-change: transform !important;
+  }
+
+  .mobile-categories-swiper .swiper-slide {
+    display: flex !important;
+    justify-content: center !important;
+    width: auto !important;
+    flex-shrink: 0 !important;
+    touch-action: manipulation !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+  }
+
+  /* Modern sliding line pagination */
+  .mobile-categories-pagination {
+    margin-top: 12px !important;
+    margin-bottom: 16px !important;
+    padding: 8px 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 20px !important;
+    position: relative !important;
+    z-index: 10 !important;
+    background: transparent !important;
+  }
+
+  /* Remove all bottom spacing on mobile categories */
+  .categories-section {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Categories section on mobile - minimal spacing for 11.5% screen height */
+  @media (max-width: 640px) {
+    .pt-2.pb-0 {
+      padding-bottom: 0.125rem !important; /* Minimal padding */
+      margin-bottom: 0.125rem !important; /* Minimal margin */
+    }
+
+    .mobile-categories-swiper {
+      margin-bottom: 0.125rem !important; /* Minimal margin */
+      padding-bottom: 0.125rem !important; /* Minimal padding */
+      max-height: 9.5vh !important; /* Limit height within 11.5% section */
+    }
+
+    .mobile-categories-swiper .swiper-wrapper {
+      padding-bottom: 0.125rem !important; /* Minimal padding */
+    }
+
+    /* Force remove all bottom margins and padding */
+    .mb-0.pb-0 {
+      margin-bottom: 0.125rem !important; /* Minimal margin */
+      padding-bottom: 0.125rem !important; /* Minimal padding */
+    }
+
+    .categories-section * {
+      margin-bottom: 0.125rem !important; /* Minimal margin */
+    }
+
+    /* Ensure pagination fits within the 11.5% constraint */
+    .mobile-categories-pagination {
+      margin-top: 0.25rem !important;
+      margin-bottom: 0.25rem !important;
+      padding: 0.125rem 0 !important;
+      min-height: 8px !important;
+    }
+  }
+
+  /* Animated sliding line pagination */
+  .mobile-categories-pagination .swiper-pagination-bullet {
+    width: 20px !important;
+    height: 2px !important;
+    border-radius: 1px !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    opacity: 1 !important;
+    margin: 0 2px !important;
+    cursor: pointer !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    display: inline-block !important;
+    position: relative !important;
+    z-index: 1 !important;
+    transform: scaleX(0.6) !important;
+  }
+
+  .mobile-categories-pagination .swiper-pagination-bullet-active {
+    background: hsl(var(--primary)) !important;
+    opacity: 1 !important;
+    transform: scaleX(1.2) !important;
+    width: 28px !important;
+    height: 2px !important;
+  }
+
+  /* Smooth sliding animation for line pagination */
+  .mobile-categories-pagination .swiper-pagination-bullet::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: hsl(var(--primary));
+    border-radius: 1px;
+    transform: scaleX(0);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: left;
+  }
+
+  .mobile-categories-pagination .swiper-pagination-bullet-active::before {
+    transform: scaleX(1);
+  }
+
+  /* Force show pagination line on mobile categories */
+  .mobile-categories-pagination::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 1px;
+    z-index: 0;
+  }
+
+  /* Make sure line is always visible */
+  .mobile-categories-pagination > * {
+    visibility: visible !important;
+    display: inline-block !important;
+    opacity: 1 !important;
+  }
+
+  .mobile-category-bullet {
+    width: 20px !important;
+    height: 2px !important;
+    border-radius: 1px !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    opacity: 1 !important;
+    margin: 0 2px !important;
+    cursor: pointer !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    display: inline-block !important;
+    transform: scaleX(0.6) !important;
+  }
+
+  .mobile-category-bullet-active {
+    background: hsl(var(--primary)) !important;
+    opacity: 1 !important;
+    transform: scaleX(1.2) !important;
+    width: 28px !important;
+  }
+
+  /* Progressive line animation based on scroll position */
+  .swiper-pagination-bullet-active-main {
+    background: hsl(var(--primary)) !important;
+    transform: scaleX(1.2) !important;
+  }
+
+  .swiper-pagination-bullet-active-prev,
+  .swiper-pagination-bullet-active-next {
+    background: hsl(var(--primary) / 0.4) !important;
+    transform: scaleX(0.8) !important;
+  }
+
+  .swiper-pagination-bullet-active-prev-prev,
+  .swiper-pagination-bullet-active-next-next {
+    background: rgba(0, 0, 0, 0.2) !important;
+    transform: scaleX(0.6) !important;
+  }
+}
+
+html,
+body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+:root {
+  --background: 220 14% 98%;
+  /* #f8fafc - Cool white background */
+  --foreground: 222 47% 11%;
+  /* #0f172a - Deep blue-gray text */
+  --muted: 210 40% 96%;
+  /* #f1f5f9 - Cool gray for muted areas */
+  --muted-foreground: 215 16% 47%;
+  /* #64748b - Slate gray text */
+  --popover: 0 0% 100%;
+  /* #ffffff - Pure white for popovers */
+  --popover-foreground: 222 47% 11%;
+  /* #0f172a - Matching text color */
+  --card: 0 0% 100%;
+  /* #ffffff - Clean white for cards */
+  --card-foreground: 222 47% 11%;
+  /* #0f172a - Consistent text color */
+  --border: 214 32% 91%;
+  /* #e2e8f0 - Cool border color */
+  --input: 214 32% 91%;
+  /* #e2e8f0 - Consistent input borders */
+  --primary: 221 83% 53%;
+  /* #2563eb - Professional blue */
+  --primary-foreground: 0 0% 100%;
+  /* #ffffff - White text on primary */
+  --secondary: 210 40% 96%;
+  /* #f1f5f9 - Cool gray for secondary */
+  --secondary-foreground: 222 47% 11%;
+  /* #0f172a - Dark text on secondary */
+  --accent: 346 77% 50%;
+  /* #e11d48 - Rich red accent */
+  --accent-foreground: 0 0% 100%;
+  /* #ffffff - White text on accent */
+  --destructive: 0 84% 60%;
+  /* #ef4444 - Clear red for destructive */
+  --destructive-foreground: 0 0% 100%;
+  /* #ffffff - White text on destructive */
+  --ring: 221 83% 53%;
+  /* #2563eb - Matching primary color */
+  --radius: 0.75rem;
+}
+
+/* Custom marker animations and styles */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.custom-user-marker {
+  animation: pulse 2s infinite;
+}
+
+.custom-store-marker {
+  transition: transform 0.2s ease;
+}
+
+.custom-store-marker:hover {
+  transform: scale(1.1);
+}
+
+/* Text clamp utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Floating card animations */
+@keyframes slide-in-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-in {
+  animation-duration: 300ms;
+  animation-fill-mode: both;
+}
+
+.slide-in-from-left-5 {
+  animation-name: slide-in-from-left;
+}
+
+/* Swiper.js Custom Styles */
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+/* Only target Swiper pagination bullets, not product card dots */
+.swiper .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+}
+
+.swiper .swiper-pagination-bullet-active {
+  background: white;
+  transform: scale(1.2);
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: white;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  opacity: 1;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none;
+  }
+
+  .swiper .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* Product Card Pagination Dots - Override any conflicting styles */
+.product-card .absolute button {
+  border: none !important;
+  outline: none !important;
+  cursor: pointer !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+/* Ensure product card pagination dots maintain their size */
+.product-card .absolute .bg-black\/20 button {
+  min-width: auto !important;
+  max-width: none !important;
+  min-height: auto !important;
+  max-height: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  background-clip: padding-box !important;
+}
+
+.dark {
+  --background: 222 47% 11%;
+  /* #0f172a - Deep blue-gray background */
+  --foreground: 210 40% 98%;
+  /* #f8fafc - Light text for dark mode */
+  --muted: 217 33% 17%;
+  /* #1e293b - Dark muted areas */
+  --muted-foreground: 215 20% 65%;
+  /* #94a3b8 - Muted text in dark mode */
+  --popover: 222 47% 11%;
+  /* #0f172a - Dark popover background */
+  --popover-foreground: 210 40% 98%;
+  /* #f8fafc - Light text on popover */
+  --card: 222 47% 11%;
+  /* #0f172a - Dark card background */
+  --card-foreground: 210 40% 98%;
+  /* #f8fafc - Light text on cards */
+  --border: 217 33% 17%;
+  /* #1e293b - Dark mode borders */
+  --input: 217 33% 17%;
+  /* #1e293b - Dark input borders */
+  --primary: 217 91% 60%;
+  /* #3b82f6 - Brighter blue for dark mode */
+  --primary-foreground: 0 0% 100%;
+  /* #ffffff - White text on primary */
+  --secondary: 217 33% 17%;
+  /* #1e293b - Dark secondary background */
+  --secondary-foreground: 210 40% 98%;
+  /* #f8fafc - Light text on secondary */
+  --accent: 346 77% 50%;
+  /* #e11d48 - Consistent accent color */
+  --accent-foreground: 0 0% 100%;
+  /* #ffffff - White text on accent */
+  --destructive: 0 84% 60%;
+  /* #ef4444 - Consistent destructive color */
+  --destructive-foreground: 0 0% 100%;
+  /* #ffffff - White text on destructive */
+  --ring: 217 91% 60%;
+  /* #3b82f6 - Matching primary color */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary to-green-600 text-primary-foreground hover:from-primary/90 hover:to-green-600/90 px-6 py-3 rounded-xl font-semibold transition-all duration-200 shadow-sm hover:shadow-md;
+  }
+
+  .btn-secondary {
+    @apply bg-gradient-to-r from-accent to-red-400 text-accent-foreground hover:from-accent/90 hover:to-red-400/90 px-6 py-3 rounded-xl font-semibold transition-all duration-200 shadow-sm hover:shadow-md;
+  }
+
+  .product-card {
+    @apply bg-card border border-border rounded-xl shadow-sm hover:shadow-lg transition-all duration-200 cursor-pointer hover:-translate-y-1 overflow-hidden;
+  }
+
+  .store-card {
+    @apply bg-gradient-to-br from-card to-secondary border border-border rounded-xl shadow-sm hover:shadow-lg transition-all duration-200 cursor-pointer hover:-translate-y-1 p-6 overflow-hidden;
+  }
+
+  .hero-gradient {
+    @apply bg-gradient-to-br from-primary/10 via-accent/5 to-primary/5;
+  }
+
+  .category-card {
+    @apply bg-gradient-to-br from-primary/20 to-primary/10 hover:from-primary/30 hover:to-primary/20 rounded-xl p-4 transition-all duration-200 hover:scale-105;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--foreground));
+}
+
+/* Bottom navbar keyboard handling */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .safe-area-inset-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+.pb-safe {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+
+/* Ensure bottom navbar stays at bottom during keyboard events */
+@media (max-width: 768px) {
+  .fixed.bottom-0 {
+    position: fixed !important;
+    bottom: 0 !important;
+    transform: translateZ(0); /* Force hardware acceleration */
+  }
+
+  /* Handle keyboard appearance on mobile */
+  @supports (-webkit-touch-callout: none) {
+    .fixed.bottom-0 {
+      bottom: max(0px, env(keyboard-inset-height, 0px)) !important;
+    }
+  }
+}
+
+/* Notification banner styles */
+.notification-enter {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.notification-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 300ms ease-out, opacity 300ms ease-out;
+}
+
+.notification-exit {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.notification-exit-active {
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 300ms ease-in, opacity 300ms ease-in;
+}
+
+/* Text overflow and wrapping utilities */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.word-wrap {
+  word-wrap: break-word;
+}
+
+.overflow-wrap-anywhere {
+  overflow-wrap: anywhere;
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+/* Mobile notification fixes */
+@media (max-width: 640px) {
+  .notification-card {
+    max-width: 100vw;
+    overflow: hidden;
+  }
+
+  .notification-content {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  /* Force text wrapping in notification components */
+  .notification-card * {
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+  }
+
+  /* Ensure addresses don't overflow */
+  .notification-card p,
+  .notification-card span {
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* Delivery notifications specific fixes */
+  .delivery-notification-card {
+    max-width: calc(100vw - 2rem);
+    overflow: hidden;
+  }
+
+  .delivery-notification-card .text-xs,
+  .delivery-notification-card .text-sm {
+    word-break: break-all !important;
+    overflow-wrap: break-word !important;
+    max-width: 100% !important;
+  }
+
+  /* Ensure no horizontal overflow in delivery notifications */
+  .delivery-notification-card * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Additional mobile responsiveness fixes */
+  /* Removed grid-cols-2 override to allow 2 items per row on mobile */
+
+  .flex-wrap {
+    flex-wrap: wrap !important;
+  }
+
+  /* Make cards stack vertically on mobile */
+  .delivery-card-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
+  /* Responsive text sizes */
+  .text-lg {
+    font-size: 1rem !important;
+  }
+
+  .text-2xl {
+    font-size: 1.25rem !important;
+  }
+
+  /* Mobile button adjustments */
+  .mobile-btn-stack {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+  }
+
+  .mobile-btn-stack .btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Address text wrapping */
+  .address-text {
+    word-break: break-all !important;
+    overflow-wrap: anywhere !important;
+    white-space: normal !important;
+    max-width: 100% !important;
+    display: block !important;
+  }
+
+  /* Ensure all text content is visible */
+  .notification-text {
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Animation for notification banner */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.notification-banner-enter {
+  animation: slideDown 0.3s ease-out;
+}
+
+/* Ensure notification panel content is fully visible on small screens */
+@media (max-width: 640px) {
+  .notification-panel {
+    max-width: calc(100vw - 1rem);
+    margin-right: 0.5rem;
+  }
+}
+
+/* Modern delivery partner dashboard animations */
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.custom-delivery-marker {
+  animation: pulse 2s infinite;
+}
+
+/* Leaflet map container fixes */
+.leaflet-container {
+  font-family: inherit !important;
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 8px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+.leaflet-popup-tip {
+  background: white !important;
+}
+
+.leaflet-popup-content {
+  margin: 8px !important;
+}
+
+/* Fix map rendering issues */
+.leaflet-map-pane {
+  z-index: 1 !important;
+}
+
+.leaflet-control-container {
+  z-index: 999 !important;
+}
+
+/* Mobile-optimized floating button fixes */
+.floating-button-mobile-optimized {
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  touch-action: manipulation !important;
+  will-change: transform !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+  position: fixed !important;
+  transform: translateZ(0) !important; /* Force hardware acceleration */
+  pointer-events: auto !important;
+  z-index: 999 !important;
+}
+
+.floating-button-mobile-optimized:active {
+  transform: scale(0.95) translateZ(0) !important;
+  transition: transform 0.1s ease-out !important;
+}
+
+/* Prevent pull-to-refresh on mobile when interacting with floating button */
+@media (max-width: 768px) {
+  .floating-button-mobile-optimized {
+    overscroll-behavior: contain;
+    -webkit-overscroll-behavior: contain;
+    min-height: 56px !important;
+    min-width: 56px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Enhanced mobile touch handling */
+  .floating-button-mobile-optimized:hover {
+    transform: scale(1.05) translateZ(0) !important;
+  }
+
+  .floating-button-mobile-optimized:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5) !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Fix for iOS Safari bottom safe area */
+  @supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .floating-button-mobile-optimized {
+      bottom: calc(5rem + env(safe-area-inset-bottom)) !important;
+    }
+  }
+
+  /* Fix for mobile viewport issues */
+  @supports (height: 100dvh) {
+    .floating-button-mobile-optimized {
+      bottom: max(
+        5rem,
+        calc(5rem + env(safe-area-inset-bottom, 0px))
+      ) !important;
+    }
+  }
+}
+
+/* Modern Product Detail - Noon Style */
+.modern-product-detail {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+}
+
+.modern-product-detail .image-carousel {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.modern-product-detail .image-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.modern-product-detail .image-slide {
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+/* Custom line clamp for description */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Modern bottom cart button */
+.modern-cart-button {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+  transition: all 0.3s ease;
+}
+
+.modern-cart-button:hover {
+  background: linear-gradient(135deg, #e55a2b 0%, #e8851a 100%);
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+  transform: translateY(-2px);
+}
+
+.modern-cart-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+}
+
+/* Mobile-first responsive design */
+@media (max-width: 640px) {
+  .modern-product-detail .image-carousel {
+    height: 320px;
+  }
+
+  .modern-product-detail .price-section {
+    padding: 1rem;
+    background: linear-gradient(to bottom, #ffffff 0%, #fafafa 100%);
+  }
+
+  .modern-product-detail .fixed-bottom-cart {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 9999 !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(10px) !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1) !important;
+    padding: 1rem !important;
+    min-height: 80px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .modern-product-detail .fixed-bottom-cart .modern-cart-button {
+    height: 48px !important;
+    min-height: 48px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+  }
+
+  /* Mobile specific positioning */
+  .modern-product-detail .fixed-bottom-cart {
+    bottom: 64px !important; /* Above bottom navbar */
+  }
+
+  /* Ensure content doesn't overlap with cart button and navbar */
+  .modern-product-detail {
+    padding-bottom: 144px !important; /* 64px navbar + 80px cart button */
+    overflow-x: hidden !important;
+    position: relative !important;
+  }
+
+  /* Fix scroll overflow issues */
+  .modern-product-detail .image-carousel {
+    position: relative !important;
+    overflow: hidden !important;
+  }
+
+  /* Prevent horizontal scroll on mobile */
+  body {
+    overflow-x: hidden !important;
+  }
+
+  /* Override any bottom navigation that might interfere */
+  .modern-product-detail .fixed-bottom-cart {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Position cart button above bottom navigation */
+.modern-product-detail .fixed-bottom-cart {
+  position: fixed !important;
+  bottom: 64px !important; /* Height of bottom navbar */
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 999 !important;
+  background: white !important;
+  border-top: 1px solid #e5e7eb !important;
+  padding: 1rem !important;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Ensure content doesn't overlap with cart button and navbar */
+.modern-product-detail {
+  padding-bottom: 144px !important; /* 64px navbar + 80px cart button */
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+/* Mobile-optimized product card image scrolling */
+.product-card {
+  /* Improve touch target sizes on mobile */
+  -webkit-tap-highlight-color: transparent;
+}
+
+.product-card .touch-manipulation {
+  /* Better touch targets on mobile */
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Scrollbar styles for thumbnail selection */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e0 transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #cbd5e0;
+  border-radius: 2px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: #a0aec0;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Mobile swipe interactions */
+@media (max-width: 768px) {
+  .product-card {
+    /* Prevent unwanted scrolling during swipe */
+    overscroll-behavior: contain;
+  }
+
+  .product-card .touch-pan-y {
+    /* Allow vertical scrolling but capture horizontal swipes */
+    touch-action: pan-y;
+  }
+
+  /* Larger touch targets for mobile */
+  .product-card button {
+    min-height: 48px;
+    min-width: 48px;
+  }
+
+  /* Improve visibility of navigation elements */
+  .product-card .absolute.opacity-70 {
+    opacity: 0.9;
+  }
+
+  /* Better mobile pagination dots */
+  .product-card .rounded-full {
+    /* Ensure touch targets are large enough */
+    padding: 4px;
+  }
+
+  /* Mobile image scrolling indicators */
+  .product-card .absolute.top-2.right-2 {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+  }
+
+  /* Thumbnail selection spacing for mobile */
+  .product-detail-thumbnails {
+    gap: 0.75rem;
+    padding-bottom: 0.5rem;
+  }
+}

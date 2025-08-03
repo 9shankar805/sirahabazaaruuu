@@ -1,0 +1,9 @@
+<svg width="1280" height="720" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#f8fafc"/>
+  <rect x="0" y="0" width="1280" height="80" fill="#059669"/>
+  <text x="640" y="50" text-anchor="middle" fill="white" font-family="Arial" font-size="24" font-weight="bold">Siraha Bazaar - Multi-vendor E-commerce Platform</text>
+  <rect x="40" y="120" width="280" height="200" rx="8" fill="white" stroke="#e5e7eb"/>
+  <rect x="360" y="120" width="280" height="200" rx="8" fill="white" stroke="#e5e7eb"/>
+  <rect x="680" y="120" width="280" height="200" rx="8" fill="white" stroke="#e5e7eb"/>
+  <rect x="1000" y="120" width="240" height="200" rx="8" fill="white" stroke="#e5e7eb"/>
+</svg>

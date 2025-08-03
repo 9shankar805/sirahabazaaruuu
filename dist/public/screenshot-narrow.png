@@ -1,0 +1,6 @@
+<svg width="640" height="1136" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="1136" fill="#f8fafc"/>
+  <rect x="0" y="0" width="640" height="100" fill="#059669"/>
+  <text x="320" y="60" text-anchor="middle" fill="white" font-family="Arial" font-size="24" font-weight="bold">Siraha Bazaar</text>
+  <rect x="20" y="120" width="600" height="200" rx="8" fill="white" stroke="#e5e7eb"/>
+</svg>
