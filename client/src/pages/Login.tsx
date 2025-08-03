@@ -18,8 +18,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import { playSound } from "@/lib/soundEffects";
 import { FcGoogle } from "react-icons/fc"; // Add this for Google icon (install react-icons if needed)
-import { auth } from "@/lib/firebaseAuth";
-import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { auth, setupRecaptcha, sendPhoneOTP } from "@/lib/firebaseAuth";
 import type { User } from "@shared/schema";
 
 const loginSchema = z.object({
@@ -88,18 +87,42 @@ export default function Login() {
       if (!isFirebaseReady) {
         throw new Error("Firebase authentication is not ready. Please try again.");
       }
-      await loginWithGoogle(); // <-- let context handle user state
+      
+      const result = await loginWithGoogle(); // <-- get result for webview handling
+      
+      // If result is null, it means redirect is in progress (webview mode)
+      if (result === null) {
+        toast({
+          title: "Redirecting...",
+          description: "Redirecting to Google sign-in for webview app",
+        });
+        return; // Don't play success sound or redirect yet
+      }
+      
+      // Success case
       playSound.success();
       toast({
         title: "Welcome back!",
         description: "You have been successfully logged in with Google.",
       });
       setLocation("/");
-    } catch (error) {
+    } catch (error: any) {
       playSound.error();
+      let errorMessage = "Google login error";
+      
+      if (error.code === 'auth/popup-blocked') {
+        errorMessage = "Popup blocked. Redirecting to Google sign-in...";
+      } else if (error.code === 'auth/popup-closed-by-user') {
+        errorMessage = "Sign-in popup was closed. Please try again.";
+      } else if (error.code === 'auth/unauthorized-domain') {
+        errorMessage = "This domain is not authorized. Please contact support.";
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      
       toast({
         title: "Google Login failed",
-        description: error instanceof Error ? error.message : "Google login error",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
@@ -125,20 +148,8 @@ export default function Login() {
       if (!window.recaptchaVerifier) {
         try {
           if (auth && typeof auth.app !== 'undefined') {
-            window.recaptchaVerifier = new RecaptchaVerifier(
-              "recaptcha-container", // <-- ID string as first argument
-              { 
-                size: "invisible",
-                callback: () => {
-                  console.log("Recaptcha verified successfully");
-                },
-                'expired-callback': () => {
-                  console.log("Recaptcha expired");
-                  window.recaptchaVerifier = null;
-                }
-              },
-              auth // <-- Firebase Auth instance as third argument
-            );
+            window.recaptchaVerifier = setupRecaptcha("recaptcha-container");
+            console.log('reCAPTCHA initialized successfully');
           } else {
             throw new Error("Firebase auth not properly initialized");
           }
@@ -156,10 +167,7 @@ export default function Login() {
         // Clear and recreate recaptcha
         window.recaptchaVerifier = null;
         if (auth && typeof auth.app !== 'undefined') {
-          window.recaptchaVerifier = new RecaptchaVerifier(
-            "recaptcha-container",
-            { size: "invisible" }
-          );
+          window.recaptchaVerifier = setupRecaptcha("recaptcha-container");
           await window.recaptchaVerifier.render();
         }
       }
@@ -169,7 +177,7 @@ export default function Login() {
       }
 
       console.log('Sending OTP to phone:', phone);
-      const result = await signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
+      const result = await sendPhoneOTP(phone, window.recaptchaVerifier);
       setConfirmationResult(result);
       toast({ title: "OTP sent!", description: "Check your phone for the code." });
     } catch (error: any) {
@@ -265,34 +273,44 @@ export default function Login() {
     }
   };
 
-  // Check if Firebase auth is ready
+  // Check if Firebase auth is ready and handle redirect results
   useEffect(() => {
-    if (auth && typeof auth.app !== 'undefined') {
-      setIsFirebaseReady(true);
-    } else {
-      console.warn('Firebase auth not properly initialized');
-      setIsFirebaseReady(false);
-    }
-  }, [auth]);
+    const initializeAuth = async () => {
+      if (auth && typeof auth.app !== 'undefined') {
+        setIsFirebaseReady(true);
+        
+        // Check for redirect result (for webview apps)
+        try {
+          const { getRedirectResult } = await import('firebase/auth');
+          const result = await getRedirectResult(auth);
+          if (result && result.user) {
+            console.log('Redirect result found:', result.user.email);
+            // Handle the redirect result through loginWithGoogle
+            await loginWithGoogle();
+            playSound.success();
+            toast({
+              title: "Welcome back!",
+              description: "You have been successfully logged in with Google.",
+            });
+            setLocation("/");
+          }
+        } catch (error) {
+          console.error('Error handling redirect result:', error);
+        }
+      } else {
+        console.warn('Firebase auth not properly initialized');
+        setIsFirebaseReady(false);
+      }
+    };
+    
+    initializeAuth();
+  }, [auth, loginWithGoogle, setLocation]);
 
   useEffect(() => {
     if (showPhoneLogin && !window.recaptchaVerifier && auth && isFirebaseReady) {
       try {
         if (auth && typeof auth.app !== 'undefined') {
-          window.recaptchaVerifier = new RecaptchaVerifier(
-            "recaptcha-container", // <-- ID string as first argument
-            { 
-              size: "invisible",
-              callback: () => {
-                console.log("Recaptcha verified successfully");
-              },
-              'expired-callback': () => {
-                console.log("Recaptcha expired");
-                window.recaptchaVerifier = null;
-              }
-            },
-            auth // <-- Firebase Auth instance as third argument
-          );
+          window.recaptchaVerifier = setupRecaptcha("recaptcha-container");
         } else {
           console.warn('Firebase auth not properly initialized');
         }
@@ -350,6 +368,7 @@ export default function Login() {
                 <div className="mb-2 p-2 bg-blue-50 dark:bg-blue-950 rounded text-xs text-blue-700 dark:text-blue-300">
                   <p><strong>Note:</strong> Phone login requires a valid phone number with country code (e.g., +977XXXXXXXXXX)</p>
                   <p className="mt-1"><strong>Supported formats:</strong> +977XXXXXXXXXX, +1XXXXXXXXXX, +91XXXXXXXXXX</p>
+                  <p className="mt-1 text-orange-600 dark:text-orange-400"><strong>Important:</strong> Make sure you have enabled phone authentication in Firebase Console</p>
                 </div>
                 <Input
                   type="tel"

@@ -941,23 +941,40 @@ export default function Homepage() {
                   <Link href={category.href}>
                     <div className="mobile-category-item">
                       {/* Round Category Image */}
-                      <div className="mobile-category-icon">
+                      <div className="mobile-category-icon relative">
                         {category.images && category.images[0] ? (
-                          <img
-                            src={category.images[0]}
-                            alt={category.name}
-                            className="w-full h-full object-cover"
-                            loading="lazy"
-                          />
-                        ) : (
                           <>
+                            <img
+                              src={category.images[0]}
+                              alt={category.name}
+                              className="w-full h-full object-cover"
+                              loading="lazy"
+                              onError={(e) => {
+                                // If image fails to load, show the fallback icon
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none';
+                                const fallback = target.nextElementSibling as HTMLElement;
+                                if (fallback) fallback.style.display = 'block';
+                              }}
+                            />
+                            <div className="absolute inset-0 hidden">
+                              <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${category.gradient} opacity-90`} />
+                              <div className="absolute inset-0 rounded-full flex items-center justify-center">
+                                <span className="text-lg">
+                                  {category.icon}
+                                </span>
+                              </div>
+                            </div>
+                          </>
+                        ) : (
+                          <div className="absolute inset-0">
                             <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${category.gradient} opacity-90`} />
                             <div className="absolute inset-0 rounded-full flex items-center justify-center">
                               <span className="text-lg">
                                 {category.icon}
                               </span>
                             </div>
-                          </>
+                          </div>
                         )}
                       </div>
                       {/* Category Name */}

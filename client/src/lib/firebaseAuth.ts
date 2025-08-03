@@ -7,6 +7,10 @@ import {
   signOut, 
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  PhoneAuthProvider,
+  signInWithCredential,
   User
 } from 'firebase/auth';
 
@@ -62,30 +66,47 @@ googleProvider.setCustomParameters({
   'prompt': 'select_account'
 });
 
-// Auth functions
+// Auth functions - Optimized for webview apps
 export const signInWithGoogle = async () => {
-  console.log('Attempting Google sign-in with popup...');
+  console.log('Starting Google sign-in for webview app...');
+  
+  // Check if we're in a webview/mobile app environment
+  const isWebView = /webview|wv|android.*; wv|iphone.*mobile/i.test(navigator.userAgent) || 
+                   (window.navigator as any).standalone === true ||
+                   window.matchMedia('(display-mode: standalone)').matches;
+  
   try {
-    // First try popup method
-    const result = await signInWithPopup(auth, googleProvider);
-    return result;
-  } catch (error: any) {
-    console.error('Popup method failed:', error);
-    
-    // If popup fails due to internal error, try redirect method
-    if (error.code === 'auth/internal-error' || error.code === 'auth/popup-blocked') {
-      console.log('Trying redirect method as fallback...');
+    if (isWebView) {
+      // For webview apps, use redirect method directly
+      console.log('Webview detected, using redirect method...');
       const { signInWithRedirect, getRedirectResult } = await import('firebase/auth');
       
       // Check if we're returning from a redirect
       const redirectResult = await getRedirectResult(auth);
       if (redirectResult) {
+        console.log('Redirect result found:', redirectResult.user?.email);
         return redirectResult;
       }
       
       // Start redirect flow
+      console.log('Starting Google redirect flow...');
       await signInWithRedirect(auth, googleProvider);
       return null; // Redirect will handle the return
+    } else {
+      // For regular browsers, try popup first
+      console.log('Regular browser detected, trying popup...');
+      const result = await signInWithPopup(auth, googleProvider);
+      return result;
+    }
+  } catch (error: any) {
+    console.error('Google sign-in failed:', error);
+    
+    // Fallback to redirect for any popup failures
+    if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user' || error.code === 'auth/internal-error') {
+      console.log('Popup failed, falling back to redirect...');
+      const { signInWithRedirect } = await import('firebase/auth');
+      await signInWithRedirect(auth, googleProvider);
+      return null;
     }
     
     throw error;
@@ -105,5 +126,32 @@ export const createUserWithEmail = (email: string, password: string) =>
 export const signInWithEmail = (email: string, password: string) =>
   signInWithEmailAndPassword(auth, email, password);
 
-export type { User };
+// Phone authentication functions
+export const setupRecaptcha = (elementId: string) => {
+  try {
+    return new RecaptchaVerifier(auth, elementId, {
+      size: 'invisible',
+      callback: () => {
+        console.log('reCAPTCHA verified successfully');
+      },
+      'expired-callback': () => {
+        console.log('reCAPTCHA expired');
+      }
+    });
+  } catch (error) {
+    console.error('Failed to create RecaptchaVerifier:', error);
+    throw new Error('Failed to initialize phone verification. Please refresh and try again.');
+  }
+};
+
+export const sendPhoneOTP = (phoneNumber: string, recaptchaVerifier: RecaptchaVerifier) => {
+  return signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier);
+};
+
+export const verifyPhoneOTP = (verificationId: string, code: string) => {
+  const credential = PhoneAuthProvider.credential(verificationId, code);
+  return signInWithCredential(auth, credential);
+};
+
+export type { User, RecaptchaVerifier };
 
